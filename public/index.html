@@ -17,7 +17,7 @@
         function search(e){
             const fetchData = async () => {
                 try{
-                    const result = await fetch(`http://localhost:5000/api/addvitisment/search?key=${e.value}`);
+                    const result = await fetch(`/api/addvitisment/search?key=${e.value}`);
                     const  data = await result.json();
                     let addString = ``;
                     if(data != undefined){
