@@ -2,9 +2,11 @@ import express from "express";
 import dotenv from "dotenv";
 import mongoose from "mongoose";
 import addvitismentRouter from "./routes/addvitismentRoutes.js";
+import cors from "cors";
 
 const app = express();
 dotenv.config();
+app.use(cors());
 
 mongoose.connect(process.env.MONGOODB_URL).then(() => {
     console.log("connected to DB");
