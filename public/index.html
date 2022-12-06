@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="main.css">
+</head>
+<body>
+    <input id="inp" oninput="search(this)" />
+    <h1> Search </h1>
+    <div id="container" class="container"></div>
+
+    <script>
+
+        function search(e){
+            const fetchData = async () => {
+                try{
+                    const result = await fetch(`http://localhost:5000/api/addvitisment/search?key=${e.value}`);
+                    const  data = await result.json();
+                    let addString = ``;
+                    if(data != undefined){
+                        data.forEach(element => {
+                            
+                            addString +=    `<div class='card'>
+                                                <div class='image'>
+                                                    <a hreaf=${element.url} >  
+                                                        <img src=${element.imageUrl} alt='this is a img' />
+                                                    </a>
+                                                </div>
+                                                <div class='name'>
+                                                    <h2> <strong>Name : </strong> ${element.companyName}</h2>
+                                                </div>
+                                                <div class='headline'>
+                                                <p> <strong>Headline : </strong> ${element.headline}</p>
+                                                </div>
+                                                <div class='headline'>
+                                                <p> <strong>Primary Text : </strong> ${element.primaryText}</p>
+                                                </div>
+                                                <div class='description'>
+                                                    <strong>Description :</strong>
+                                                    <p> ${element.description}</p>
+                                                </div>
+                                            </div>`;
+                        });
+
+                        document.getElementById("container").innerHTML = addString;
+                    }
+                }catch(err){
+                    console.log(err);
+                }
+            }
+
+            fetchData();
+        }
+
+    </script>
+</body>
+</html>
